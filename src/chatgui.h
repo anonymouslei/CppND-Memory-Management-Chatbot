@@ -63,7 +63,7 @@ private:
     wxTextCtrl *_userTextCtrl;
 
     // events
-    void OnEnter(wxCommandEvent &WXUNUSED(event));
+    void OnEnter(wxCommandEvent &WXUNUSED(event)); // capture the enter key
 
 public:
     // constructor / desctructor
