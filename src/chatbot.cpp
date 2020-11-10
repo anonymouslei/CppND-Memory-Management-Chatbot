@@ -45,6 +45,54 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+ChatBot::ChatBot(const ChatBot& chatBot) // copy constructor
+{
+    std::cout << "ChatBot Copy Constructor" << std::endl;
+
+    _chatLogic = chatBot._chatLogic;
+    _rootNode = chatBot._rootNode;
+
+    _image = chatBot._image;
+}
+
+ChatBot::ChatBot(ChatBot && chatBot) noexcept // move constructor
+    : _chatLogic(chatBot._chatLogic), _rootNode(chatBot._rootNode), _image(chatBot._image)
+{
+    std::cout << "ChatBot Move Constructor" << std::endl;
+
+    chatBot._chatLogic = nullptr;
+    chatBot._rootNode = nullptr;
+    chatBot._image = nullptr;
+}
+
+ChatBot& ChatBot::operator=(ChatBot&& chatBot) noexcept // move assignment operator
+{
+    std::cout << "ChatBot Move Assignment Operator" << std::endl;
+    // check if two operators are same
+    if (this != &chatBot) {
+        // free();
+        _chatLogic = chatBot._chatLogic;
+        _rootNode = chatBot._rootNode;
+        _image = chatBot._image;
+
+        chatBot._chatLogic = nullptr;
+        chatBot._rootNode = nullptr;
+        chatBot._image = nullptr;
+    }
+
+    return *this;
+}
+
+ChatBot& ChatBot::operator=(const ChatBot& chatBot) // copy assignment operator
+    // : _chatLogic(chatBot._chatLogic), _rootNode(chatBot._rootNode), _image(chatBot._image) 
+    // the upper sentens is wrong, because only constructors take memver initializers
+    {
+        std::cout << "ChatBot Copy Assignment Operator" << std::endl;
+        _chatLogic = chatBot._chatLogic;
+        _rootNode = chatBot._rootNode;
+        _image = chatBot._image;
+        return *this;
+    }
 ////
 //// EOF STUDENT CODE
 
