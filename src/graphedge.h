@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 
 class GraphNode; // forward declaration
 
@@ -12,8 +13,10 @@ private:
     // data handles (not owned)
     GraphNode *_childNode;
     GraphNode *_parentNode;
+//    std::shared_ptr<GraphNode> _childNode;
+//    std::shared_ptr<GraphNode> _parentNode;
 
-    // proprietary members
+  // proprietary members
     int _id;
     std::vector<std::string> _keywords; // list of topics associated with this edge
     
