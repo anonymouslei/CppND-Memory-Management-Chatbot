@@ -43,10 +43,10 @@ ChatLogic::~ChatLogic()
 //    }
 
     // delete all edges
-    for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
-    {
-        delete *it;
-    }
+//    for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
+//    {
+//        delete *it;
+//    }
 
     std::cout << "ChatLogic Deconstructor" << std::endl;
       ////
@@ -104,6 +104,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                     std::string tokenInfo = tokenStr.substr(posTokenInfo + 1, tokenStr.size() - 1);
 
                     // add token to vector
+//                    std::cout << "tocken type: " << tokenType << " , tocken info:" << tokenInfo << std::endl;
                     tokens.push_back(std::make_pair(tokenType, tokenInfo));
                 }
 
@@ -127,10 +128,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                     {
                         //// STUDENT CODE
                         ////
-//                        auto newNode = std::find_if(_nodes.begin(),
-//                                                  _nodes.end(),
-//                                                  [&id](std::shared_ptr<GraphNode> node)
-//                                                  { return node->GetID() == id; });
                         // check if node with this ID exists already
                         auto newNode = std::find_if(_nodes.begin(),
                                                     _nodes.end(),
@@ -177,7 +174,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             GraphEdge *edge = new GraphEdge(id);
                             edge->SetChildNode(childNode->get());
                             edge->SetParentNode(parentNode->get());
-                            _edges.push_back(edge);
+//                            _edges.push_back(edge);
 
                             // find all keywords for current node
                             AddAllTokensToElement("KEYWORD", tokens, *edge);

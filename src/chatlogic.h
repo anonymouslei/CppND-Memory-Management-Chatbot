@@ -20,7 +20,8 @@ private:
     // std::vector<GraphNode *> _nodes; // where raw pointer to the nodes on the heap are stored
     // when the instance of ChatLogic is destoried, the alloced has to called to avoid memory allocated.
     std::vector<std::shared_ptr<GraphNode>> _nodes;
-    std::vector<GraphEdge *> _edges;
+//    std::vector<GraphEdge *> _edges;
+//    std::vector<std::unique_ptr<GraphEdge>> _edges;
 
     ////
     //// EOF STUDENT CODE
