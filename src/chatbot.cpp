@@ -12,9 +12,11 @@
 ChatBot::ChatBot()
 {
     // invalidate data handles
-    _image = nullptr;
+    _image = NULL;
     _chatLogic = nullptr;
     _rootNode = nullptr;
+    _currentNode = nullptr;
+
 }
 
 // constructor WITH memory allocation
@@ -25,6 +27,7 @@ ChatBot::ChatBot(std::string filename)
     // invalidate data handles
     _chatLogic = nullptr;
     _rootNode = nullptr;
+    _currentNode = nullptr;
 
     // load image into heap memory
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
@@ -51,34 +54,39 @@ ChatBot::ChatBot(const ChatBot& chatBot) // copy constructor
 
     _chatLogic = chatBot._chatLogic;
     _rootNode = chatBot._rootNode;
+    _currentNode = chatBot._currentNode;
 
     _image = chatBot._image;
 }
 
-ChatBot::ChatBot(ChatBot && chatBot) noexcept // move constructor
-    : _chatLogic(chatBot._chatLogic), _rootNode(chatBot._rootNode), _image(chatBot._image)
+ChatBot::ChatBot(ChatBot && chatBot) noexcept// move constructor
+    : _chatLogic(chatBot._chatLogic), _rootNode(chatBot._rootNode), _image(chatBot._image), _currentNode(chatBot._currentNode)
 {
     std::cout << "ChatBot Move Constructor" << std::endl;
 
+    chatBot._currentNode = nullptr;
     chatBot._chatLogic = nullptr;
     chatBot._rootNode = nullptr;
-    chatBot._image = nullptr;
+    chatBot._image = NULL;
 }
 
 ChatBot& ChatBot::operator=(ChatBot&& chatBot) noexcept // move assignment operator
 {
     std::cout << "ChatBot Move Assignment Operator" << std::endl;
     // check if two operators are same
-    if (this != &chatBot) {
-        // free();
-        _chatLogic = chatBot._chatLogic;
-        _rootNode = chatBot._rootNode;
-        _image = chatBot._image;
+    if (this == &chatBot)
+        return *this;
 
-        chatBot._chatLogic = nullptr;
-        chatBot._rootNode = nullptr;
-        chatBot._image = nullptr;
-    }
+    _chatLogic = chatBot._chatLogic;
+    _rootNode = chatBot._rootNode;
+    _currentNode = chatBot._currentNode;
+    _image = chatBot._image;
+    _chatLogic->SetChatbotHandle(this);
+
+    chatBot._chatLogic = nullptr;
+    chatBot._rootNode = nullptr;
+    chatBot._currentNode = nullptr;
+    chatBot._image = NULL;
 
     return *this;
 }
