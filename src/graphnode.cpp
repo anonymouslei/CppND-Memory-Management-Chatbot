@@ -4,7 +4,6 @@
 GraphNode::GraphNode(int id)
 {
     _id = id;
-    std::cout << "GraphNode Constructor" << std::endl;
 }
 
 GraphNode::~GraphNode()
@@ -12,7 +11,6 @@ GraphNode::~GraphNode()
     //// STUDENT CODE
     ////
 
-    std::cout << "GraphNode Deconstructor" << std::endl;
     // delete _chatBot; 
 
     ////
@@ -29,9 +27,10 @@ void GraphNode::AddEdgeToParentNode(GraphEdge *edge)
     _parentEdges.push_back(edge);
 }
 
-void GraphNode::AddEdgeToChildNode(GraphEdge *edge)
+// void GraphNode::AddEdgeToChildNode(GraphEdge *edge)
+void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
 {
-    _childEdges.push_back(std::unique_ptr<GraphEdge>(edge));
+    _childEdges.push_back(std::move(edge));
 //    _childEdges.push_back(edge);
 }
 
