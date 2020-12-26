@@ -46,7 +46,6 @@ ChatBotFrame::ChatBotFrame(const wxString &title) : wxFrame(NULL, wxID_ANY, titl
     vertBoxSizer->Add(_userTextCtrl, 1, wxEXPAND | wxALL, 5);
     ctrlPanel->SetSizer(vertBoxSizer);
 
-//    std::cout << "debug 4" << std::endl;
     // position window in screen center
     this->Centre();
 }
@@ -115,12 +114,9 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
     // allow for PNG images to be handled
     wxInitAllImageHandlers();
 
-    //// STUDENT CODE
-    ////
-
     // create chat logic instance
     // _chatLogic = new ChatLogic(); 
-    _chatLogic = std::unique_ptr<ChatLogic> (new ChatLogic()); 
+    _chatLogic = std::unique_ptr<ChatLogic> (new ChatLogic()); // it is not exception safe as it may cause memory leaks. 
 
     // pass pointer to chatbot dialog so answers can be displayed in GUI
     _chatLogic->SetPanelDialogHandle(this);
@@ -128,22 +124,10 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
     // load answer graph from file
     _chatLogic->LoadAnswerGraphFromFile(dataPath + "src/answergraph.txt");
 
-    // std::cout << "ChatBotPanelDialog Constructor" << std::endl;
-
-    ////
-    //// EOF STUDENT CODE
 }
 
 ChatBotPanelDialog::~ChatBotPanelDialog()
 {
-    //// STUDENT CODE
-    ////
-
-    // std::cout << "ChatBOtPanelDIalog Deconstructor" << std::endl;
-    // delete _chatLogic;
-
-    ////
-    //// EOF STUDENT CODE
 }
 
 void ChatBotPanelDialog::AddDialogItem(wxString text, bool isFromUser)

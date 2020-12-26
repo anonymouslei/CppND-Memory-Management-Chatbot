@@ -45,9 +45,6 @@ ChatBot::~ChatBot()
     }
 }
 
-//// STUDENT CODE
-////
-
 ChatBot::ChatBot(const ChatBot& chatBot) // copy constructor
 {
     std::cout << "ChatBot Copy Constructor" << std::endl;
@@ -56,7 +53,10 @@ ChatBot::ChatBot(const ChatBot& chatBot) // copy constructor
     _rootNode = chatBot._rootNode;
     _currentNode = chatBot._currentNode;
 
-    _image = chatBot._image;
+    // _image = chatBot._image; // because the variable _image is a pointer, and we are making a copy of the object that contains it. 
+    // in this case, we must make a deep copy. if we don't, we will have two objects that contain the same pointer internally. this 
+    // can lead to unintended changes and problems that are hard to trace.
+    _image = new wxBitmap(*(chatBot._image));
 }
 
 ChatBot::ChatBot(ChatBot && chatBot) noexcept// move constructor
@@ -98,11 +98,10 @@ ChatBot& ChatBot::operator=(const ChatBot& chatBot) // copy assignment operator
         std::cout << "ChatBot Copy Assignment Operator" << std::endl;
         _chatLogic = chatBot._chatLogic;
         _rootNode = chatBot._rootNode;
-        _image = chatBot._image;
+        // _image = chatBot._image;
+        _image = new wxBitmap(*(chatBot._image));
         return *this;
     }
-////
-//// EOF STUDENT CODE
 
 void ChatBot::ReceiveMessageFromUser(std::string message)
 {
